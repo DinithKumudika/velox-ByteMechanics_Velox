@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "688879812841",
+    "project_id": "velox-app-1fe81",
+    "storage_bucket": "velox-app-1fe81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688879812841:android:a82fdb092c06b83100b078",
+        "android_client_info": {
+          "package_name": "com.example.velox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688879812841-f26jhgmqo5hfmcs6gik4pm4s91ftunqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhct1donTe1a073dyxfcbCWX5SaJIYQpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688879812841-f26jhgmqo5hfmcs6gik4pm4s91ftunqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
