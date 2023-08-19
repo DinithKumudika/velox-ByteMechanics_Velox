@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:velox/config/firebase_service.dart';
+import 'package:get/get.dart';
 import 'package:velox/config/routes.dart';
+import 'package:velox/repositories/auth_repository.dart';
 import 'package:velox/utils/router.dart';
 import 'package:velox/screens/splash_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp().then((value) => Get.put(AuthRepository()));
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +21,7 @@ class MyApp extends StatelessWidget {
     // instantiate the router and pass int the routes map
     final router = AppRouter(routes);
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
       title: 'Velox',

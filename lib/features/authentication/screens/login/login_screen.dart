@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:velox/constants/colors.dart';
-import 'package:velox/constants/images.dart';
 import 'package:velox/features/authentication/screens/login/widgets/login_form.dart';
 import 'package:velox/features/authentication/screens/login/widgets/login_header.dart';
+import 'package:velox/features/authentication/screens/login/widgets/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LoginHeader(),
               const LoginForm(),
@@ -42,27 +42,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: COLOR_GRAY),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                          width: 2.0,
-                          style: BorderStyle.solid,
-                          color: COLOR_LIGHT.withOpacity(0.5),
-                        ),
-                      ),
-                      icon: Image.asset(
-                        googleLogo,
-                        width: 30.0,
-                        height: 30.0,
-                      ),
-                    ),
-                  ),
+                  const GoogleSignIn(),
                   const SizedBox(
                     height: 10.0,
                   ),

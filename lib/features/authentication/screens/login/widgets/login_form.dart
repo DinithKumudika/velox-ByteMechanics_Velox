@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velox/constants/colors.dart';
+import 'package:velox/features/authentication/controllers/login_controller.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,6 +16,8 @@ class _LoginFormState extends State<LoginForm> {
 
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
+
+  bool passwordToggle = true;
 
   @override
   void initState() {
@@ -41,15 +45,21 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final loginController = Get.put(LoginController());
+    final _formKey = GlobalKey<FormState>();
 
     return Form(
+      key: _formKey,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.only(top: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: loginController.email,
+              validator: (value) => validateEmail(value),
               focusNode: _inputEmailFocusNode,
+              keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                   color: _isEmailFocused
                       ? COLOR_LIGHT
@@ -81,12 +91,14 @@ class _LoginFormState extends State<LoginForm> {
               height: 15.0,
             ),
             TextFormField(
+              controller: loginController.password,
+              validator: (value) => validatePassword(value),
               focusNode: _inputPasswordFocusNode,
               style: TextStyle(
                   color: _isPasswordFocused
                       ? COLOR_LIGHT
                       : Colors.grey.withOpacity(0.8)),
-              obscureText: true,
+              obscureText: passwordToggle,
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock_outline_sharp,
@@ -104,9 +116,16 @@ class _LoginFormState extends State<LoginForm> {
                     borderSide: const BorderSide(color: COLOR_LIGHT),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  suffixIcon: Icon(
-                    Icons.remove_red_eye_sharp,
+                  suffixIcon: IconButton(
+                    icon: passwordToggle
+                        ? const Icon(Icons.visibility)
+                        : const Icon(Icons.visibility_off),
                     color: Colors.grey.withOpacity(0.8),
+                    onPressed: () {
+                      setState(() {
+                        passwordToggle = !passwordToggle;
+                      });
+                    },
                   ),
                   filled: true,
                   fillColor:
@@ -134,7 +153,14 @@ class _LoginFormState extends State<LoginForm> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    LoginController.instance.login(
+                      loginController.email.text.trim(),
+                      loginController.password.text.trim(),
+                    );
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(size.width * 0.9, 55.0),
                   backgroundColor: COLOR_LIGHT.withOpacity(0.25),
@@ -153,4 +179,32 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+}
+
+String? validateEmail(String? email) {
+  String regex =
+      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+
+  RegExp regExp = RegExp(regex);
+
+  if (email!.isEmpty) {
+    return "email is required";
+  } else if (!regExp.hasMatch(email)) {
+    return "invalid email";
+  }
+  return null;
+}
+
+String? validatePassword(String? password) {
+  String regex = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  RegExp regExp = RegExp(regex);
+
+  if (password!.isEmpty) {
+    return "password is required";
+  } else if (password.length > 30) {
+    return "password should be less than 30 characters";
+  } else if (!regExp.hasMatch(password)) {
+    return "invalid password";
+  }
+  return null;
 }

@@ -10,17 +10,20 @@ class LoginHeader extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image(
           image: const AssetImage(logoImg),
-          width: size.width * 0.8,
-          height: size.height * 0.3,
+          width: size.width * 0.3,
+          height: size.height * 0.2,
         ),
-        Text(
-          "LOGIN".toUpperCase(),
-          style: const TextStyle(
-              color: COLOR_LIGHT, fontSize: 35.0, fontWeight: FontWeight.bold),
+        Padding(
+          padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+          child: Text(
+            "LOGIN".toUpperCase(),
+            style: const TextStyle(
+                color: COLOR_LIGHT, fontSize: 35.0, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );
