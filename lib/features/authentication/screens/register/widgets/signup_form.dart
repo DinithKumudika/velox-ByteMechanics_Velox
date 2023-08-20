@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:velox/constants/colors.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:velox/features/authentication/controllers/signup_controller.dart';
+import 'package:velox/features/authentication/models/user_model.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -17,6 +18,8 @@ class _SignupFormState extends State<SignupForm> {
   final FocusNode _inputPhoneFocusNode = FocusNode();
   final FocusNode _inputPasswordFocusNode = FocusNode();
 
+  final _formKey = GlobalKey<FormState>();
+
   bool _isFullNameFocused = false;
   bool _isEmailFocused = false;
   bool _isPhoneFocused = false;
@@ -25,7 +28,7 @@ class _SignupFormState extends State<SignupForm> {
   bool passwordToggle = true;
 
   String initialCountry = 'LK';
-  PhoneNumber number = PhoneNumber(isoCode: 'LK');
+  PhoneNumber number = PhoneNumber(isoCode: 'LK', dialCode: '+94');
 
   @override
   void initState() {
@@ -69,7 +72,6 @@ class _SignupFormState extends State<SignupForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final signUpController = Get.put(SignUpController());
-    final _formKey = GlobalKey<FormState>();
 
     return Form(
       key: _formKey,
@@ -183,7 +185,13 @@ class _SignupFormState extends State<SignupForm> {
                 fillColor: _isPhoneFocused ? Colors.transparent : COLOR_LIGHT,
               ),
               onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
+                print("on changed: $number");
+              },
+              onSaved: (PhoneNumber number) {
+                print("on saved: $number");
+              },
+              onInputValidated: (bool value) {
+                print(value);
               },
             ),
             const SizedBox(
@@ -232,24 +240,40 @@ class _SignupFormState extends State<SignupForm> {
               ),
             ),
             const SizedBox(
-              height: 10.0,
-            ),
-            const SizedBox(
               height: 30.0,
             ),
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  print(
+                      "${number.dialCode!} ${signUpController.phoneNo.text.trim()}");
+
                   if (_formKey.currentState!.validate()) {
-                    SignUpController.instance.register(
-                      signUpController.email.text.trim(),
+                    final user = UserModel(
+                      email: signUpController.email.text.trim(),
+                      fullName: signUpController.fullName.text.trim(),
+                      phoneNo:
+                          "${number.dialCode!} ${signUpController.phoneNo.text.trim()}",
+                    );
+
+                    String? error = await signUpController.register(
+                      user.email,
                       signUpController.password.text.trim(),
                     );
-                    SignUpController.instance.phoneAuthentication(
-                      signUpController.phoneNo.text.trim(),
-                    );
-                    Navigator.pushNamed(context, '/otp');
+
+                    if (error != null) {
+                      Get.showSnackbar(
+                        GetSnackBar(
+                          backgroundColor: COLOR_DANGER,
+                          title: 'Error',
+                          message: error.toString(),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    } else {
+                      signUpController.createUser(user);
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -296,7 +320,7 @@ String? validateEmail(String? value) {
 String? validatePhoneNo(String? value) {
   if (value!.isEmpty) {
     return "phone no is required";
-  } else if (value.length != 9) {
+  } else if (value.trim().length != 11) {
     return "invalid phone no";
   }
   return null;

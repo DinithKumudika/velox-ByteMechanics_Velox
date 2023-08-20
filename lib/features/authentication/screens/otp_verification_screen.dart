@@ -4,11 +4,12 @@ import 'package:velox/constants/colors.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:velox/constants/images.dart';
 import 'package:velox/features/authentication/controllers/otp_controller.dart';
+import 'package:velox/screens/home_screen.dart';
 
 class OTPVerificationScreen extends StatelessWidget {
-  const OTPVerificationScreen({super.key});
+  const OTPVerificationScreen({super.key, required this.phoneNo});
 
-  // final String phoneNo;
+  final String phoneNo;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +48,10 @@ class OTPVerificationScreen extends StatelessWidget {
                   color: COLOR_LIGHT),
             ),
             Text(
-              "Enter the OTP code sent to +94 71 222 34 56",
+              "Enter the OTP code sent to $phoneNo",
               style: const TextStyle(
                 fontSize: 20,
+                color: COLOR_LIGHT,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -73,8 +75,19 @@ class OTPVerificationScreen extends StatelessWidget {
               height: 20.0,
             ),
             ElevatedButton(
-              onPressed: () {
-                OTPController.instance.verifyOTP(otp);
+              onPressed: () async {
+                Object? error = await otpController.verifyOTP(otp);
+                if (error != null) {
+                  Get.showSnackbar(
+                    GetSnackBar(
+                      backgroundColor: COLOR_DANGER,
+                      title: 'Error',
+                      message: error.toString(),
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                  Get.back();
+                }
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: Size(size.width * 0.9, 55.0),

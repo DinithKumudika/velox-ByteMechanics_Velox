@@ -14,6 +14,8 @@ class _LoginFormState extends State<LoginForm> {
   final FocusNode _inputEmailFocusNode = FocusNode();
   final FocusNode _inputPasswordFocusNode = FocusNode();
 
+  final _formKey = GlobalKey<FormState>();
+
   bool _isEmailFocused = false;
   bool _isPasswordFocused = false;
 
@@ -46,7 +48,6 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final loginController = Get.put(LoginController());
-    final _formKey = GlobalKey<FormState>();
 
     return Form(
       key: _formKey,

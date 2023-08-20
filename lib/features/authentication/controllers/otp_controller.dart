@@ -5,9 +5,13 @@ import 'package:velox/screens/home_screen.dart';
 class OTPController extends GetxController {
   static OTPController get instance => Get.find();
 
-  void verifyOTP(String otp) async {
-    var isVerified = await AuthRepository.instance.verifyOTP(otp);
-
-    isVerified ? Get.offAll(()=> const HomeScreen()) : Get.back();
+  Future<Object?> verifyOTP(String otp) async {
+    Object? isVerified = await AuthRepository.instance.verifyOTP(otp);
+    if (isVerified == true) {
+      Get.offAll(() => const HomeScreen());
+    } else {
+      return isVerified;
+    }
+    return null;
   }
 }
