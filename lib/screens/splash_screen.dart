@@ -53,8 +53,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
                       logoImg,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       fit: BoxFit.cover,
                     ),
                   ),
