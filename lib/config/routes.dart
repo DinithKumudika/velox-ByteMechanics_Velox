@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:velox/features/authentication/screens/login/login_screen.dart';
-import 'package:velox/features/authentication/screens/otp_verification_screen.dart';
 import 'package:velox/features/authentication/screens/register/signup_screen.dart';
+import 'package:velox/features/booking/screens/bookings_screen.dart';
 import 'package:velox/screens/home_screen.dart';
 import 'package:velox/features/authentication/screens/welcome_screen.dart';
 import 'package:velox/screens/booking_screen.dart';
@@ -15,4 +15,5 @@ final Map<String, WidgetBuilder> routes = {
   '/signup': (context) => const SignupScreen(),
   '/bookingDetails': (context) => BookingScreen(),
   '/home': (context) => const HomeScreen(),
+  '/bookings': (context) => const BookingsScreen(),
 };
