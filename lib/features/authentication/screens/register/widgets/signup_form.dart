@@ -246,6 +246,10 @@ class _SignupFormState extends State<SignupForm> {
                       signUpController.email.text.trim(),
                       signUpController.password.text.trim(),
                     );
+                    SignUpController.instance.phoneAuthentication(
+                      signUpController.phoneNo.text.trim(),
+                    );
+                    Navigator.pushNamed(context, '/otp');
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -276,7 +280,8 @@ String? validateFullName(String? value) {
 }
 
 String? validateEmail(String? value) {
-  String regex = r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+  String regex =
+      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   RegExp regExp = RegExp(regex);
 

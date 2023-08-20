@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "688879812841-vgs7ud3nc11j5o3nfd25o8pqaopkd0dv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.velox",
+            "certificate_hash": "2a835d34333646d906315d263c5c3fac15c2b815"
+          }
+        },
+        {
           "client_id": "688879812841-f26jhgmqo5hfmcs6gik4pm4s91ftunqb.apps.googleusercontent.com",
           "client_type": 3
         }

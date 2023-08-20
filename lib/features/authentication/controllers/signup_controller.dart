@@ -12,7 +12,20 @@ class SignUpController extends GetxController {
 
   void register(String email, String password) {
     if (email.isNotEmpty && password.isNotEmpty && email.isEmail) {
-      AuthRepository.instance.createUserWithEmailAndPassword(email, password);
+      String? error = AuthRepository.instance
+          .createUserWithEmailAndPassword(email, password) as String?;
+
+      if (error != null) {
+        Get.showSnackbar(GetSnackBar(
+          message: error.toString(),
+        ));
+      }
+    }
+  }
+
+  void phoneAuthentication(String phoneNo) {
+    if (phoneNo.isNotEmpty) {
+      AuthRepository.instance.phoneAuthentication(phoneNo);
     }
   }
 }
