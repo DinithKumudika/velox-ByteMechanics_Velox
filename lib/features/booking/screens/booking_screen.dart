@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:velox/widgets/booking_tile_narrow.dart';
 import 'package:velox/widgets/booking_tile_vertical.dart';
 
-import '../widgets/booking_tile_wide.dart';
+import '../../../widgets/booking_tile_wide.dart';
 
 class BookingScreen extends StatefulWidget {
   static const routeName = '/booking-screen';
