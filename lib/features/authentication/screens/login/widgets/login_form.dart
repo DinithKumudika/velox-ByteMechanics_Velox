@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velox/constants/colors.dart';
 import 'package:velox/features/authentication/controllers/login_controller.dart';
+import 'package:velox/screens/home_screen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -168,6 +169,10 @@ class _LoginFormState extends State<LoginForm> {
                           message: error.toString(),
                           duration: const Duration(seconds: 3),
                         ),
+                      );
+                    } else {
+                      Get.offAll(
+                        () => const HomeScreen(),
                       );
                     }
                   }
