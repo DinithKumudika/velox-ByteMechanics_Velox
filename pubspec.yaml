@@ -44,6 +44,8 @@ dependencies:
   firebase_auth: ^4.7.3
   cloud_firestore: ^4.8.5
   get: ^4.6.5
+  intl: ^0.18.1
+  numberpicker: ^2.1.2
 
 dev_dependencies:
   flutter_test:
