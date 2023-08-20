@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>688879812841-bq92gtc5306891pvthvi6aqvilmjcnpk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.688879812841-bq92gtc5306891pvthvi6aqvilmjcnpk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>688879812841-vgs7ud3nc11j5o3nfd25o8pqaopkd0dv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB_G2eL1EcFpnIqCls--FVmk1f8onV1n8g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>688879812841</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.velox</string>
+	<key>PROJECT_ID</key>
+	<string>velox-app-1fe81</string>
+	<key>STORAGE_BUCKET</key>
+	<string>velox-app-1fe81.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:688879812841:ios:f45f3c3ca57bcf8d00b078</string>
+</dict>
+</plist>
