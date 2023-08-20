@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velox/constants/colors.dart';
+import 'package:velox/features/booking/screens/bookings_screen.dart';
 import 'package:velox/repositories/auth_repository.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,8 +30,16 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     AuthRepository.instance.logoutUser();
                   },
-                  child: Text('Logout'),
+                  child: const Text('Logout'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.to(
+                      () => const BookingsScreen(),
+                    );
+                  },
+                  child: const Text('Bookings'),
+                )
               ],
             ),
           ),

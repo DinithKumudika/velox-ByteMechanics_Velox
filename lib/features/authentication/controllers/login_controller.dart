@@ -14,7 +14,7 @@ class LoginController extends GetxController {
         .loginWithEmailAndPassword(email, password);
 
     if (error != null) {
-      print(error);
+      print("error: $error");
       return error;
     }
     return null;
