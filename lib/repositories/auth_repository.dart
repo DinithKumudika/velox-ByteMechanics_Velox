@@ -42,8 +42,11 @@ class AuthRepository extends GetxController {
       print(e.code);
 
       switch (e.code) {
+        case 'weak-password':
+          message = "Password must have at least 8 characters";
+          break;
         case 'email-already-exists':
-          message = "user already exists with this email";
+          message = "user already exists with that email";
           break;
         case 'invalid-email':
           message = "email is not valid";
@@ -57,6 +60,7 @@ class AuthRepository extends GetxController {
           break;
         default:
           message = 'Unknown error occurred';
+          break;
       }
       return message;
     } catch (_) {
@@ -68,12 +72,33 @@ class AuthRepository extends GetxController {
 
   createUser(user, String fullName, String phoneNo) {}
 
-  Future<void> loginWithEmailAndPassword(String email, String password) async {
+  Future<String?> loginWithEmailAndPassword(
+      String email, String password) async {
+    String? message;
+
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      switch (e.code) {
+        case 'user-not-found':
+          message = 'No user exists for that email';
+          break;
+        case 'wrong-password':
+          message = 'Invalid password';
+          break;
+        default:
+          message = 'Unknown error occurred';
+          break;
+      }
+      return message;
+    } catch (_) {
+      message = 'Unknown error occurred';
+      return message;
     }
+    return null;
   }
 
   Future<void> logoutUser() async {

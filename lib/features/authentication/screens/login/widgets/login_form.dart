@@ -153,12 +153,22 @@ class _LoginFormState extends State<LoginForm> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    LoginController.instance.login(
+                    String? error = await LoginController.instance.login(
                       loginController.email.text.trim(),
                       loginController.password.text.trim(),
                     );
+
+                    if (error != null) {
+                      Get.showSnackbar(
+                        GetSnackBar(
+                          backgroundColor: COLOR_DANGER,
+                          message: error.toString(),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -196,7 +206,8 @@ String? validateEmail(String? email) {
 }
 
 String? validatePassword(String? password) {
-  String regex = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  String regex =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regExp = RegExp(regex);
 
   if (password!.isEmpty) {
