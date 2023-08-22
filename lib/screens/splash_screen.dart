@@ -11,22 +11,19 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller;
+class _SplashScreenState extends State<SplashScreen> {
   void _onTap(BuildContext context) {
     // login screen on tap
+    Navigator.pushNamed(context, '/welcome');
   }
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -51,30 +48,22 @@ class _SplashScreenState extends State<SplashScreen>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Center(
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.circular(8),
-                //     child: SvgPicture.asset(
-                //       logo,
-                //       width: MediaQuery.of(context).size.width * 0.6,
-                //       height: MediaQuery.of(context).size.height * 0.6,
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ),
                 Center(
-                  child: Lottie.asset(
-                    'assets/animations/splash_loader.json',
-                    controller: _controller,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    onLoaded: (compos) {
-                      _controller
-                        ..duration = compos.duration
-                        ..forward().then((value) => Navigator.pushNamed(context, '/login'));
-                    },
-                    fit: BoxFit.contain
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      logoImg,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                ),
+                Center(
+                  child: Lottie.asset('assets/animations/splash_loader.json',
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      fit: BoxFit.contain),
                 ),
               ],
             ),
